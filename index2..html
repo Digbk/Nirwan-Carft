@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nirwan Craft — Elegant Ladies' Chappals</title>
+  <meta name="description" content="Nirwan Craft - luxurious and playful ladies' chappals. Shop premium flip flops, juttis, heels & more.">
+  <meta property="og:title" content="Nirwan Craft — Elegant Ladies' Chappals">
+  <meta property="og:description" content="Handcrafted, premium chappals with a playful, luxurious style.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="<!-- IMAGE: favicon.png -->">
+  <!-- Google fonts (use when online) -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================
+       Theme variables & reset
+       ========================== */
+    :root{
+      --bg: #fff7f9;
+      --card: rgba(255,255,255,0.6);
+      --glass: rgba(255,255,255,0.55);
+      --accent: #d77fbf; /* blush */
+      --accent-2: #c7a0ff; /* lilac */
+      --gold: #d4b36a;
+      --text: #2b2430;
+      --muted: #6b5b66;
+      --glass-blur: 10px;
+      --radius: 16px;
+      --soft-shadow: 0 6px 18px rgba(43,36,48,0.08);
+      --glow: 0 8px 30px rgba(199,128,255,0.12);
+      --timing: 320ms;
+      --timing-fast: 180ms;
+      --max-width: 1200px;
+    }
+
+    /* Auto dark preference */
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg: #0f0720;
+        --card: rgba(20,12,28,0.55);
+        --glass: rgba(20,12,28,0.45);
+        --text: #f7eef9;
+        --muted: #cdbcd0;
+        --accent: #ff7fbf;
+        --accent-2: #b18bff;
+      }
+    }
+
+    /* Reset */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Open Sans",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background: linear-gradient(180deg,var(--bg), #fff);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Utilities */
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 18px}
+    .row{display:flex;flex-wrap:wrap;gap:18px}
+    .center{display:flex;align-items:center;justify-content:center}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+    kbd{background:#111;color:#fff;padding:2px 6px;border-radius:6px;font-size:12px}
+
+    /* Focus visible */
+    :focus{outline:none}
+    a:focus, button:focus, input:focus{
+      outline:3px solid rgba(199,128,255,0.22);
+      outline-offset:3px;
+      border-radius:8px;
+    }
+
+    /* Announcement */
+    .announcement{
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:white;padding:8px 12px;font-weight:600;position:relative;
+      font-size:14px;
+    }
+    .announcement button{position:absolute;right:12px;background:transparent;border:0;color:rgba(255,255,255,0.9);font-weight:700;cursor:pointer}
+
+    /* Header */
+    .header{
+      position:sticky;top:0;z-index:80;
+      backdrop-filter: blur(4px);
+      transition:transform 300ms ease, box-shadow 300ms ease;
+    }
+    .header.hidden{transform:translateY(-110%);box-shadow:none}
+    .header-inner{
+      display:flex;align-items:center;justify-content:space-between;padding:14px 18px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.35));
+      border-bottom:1px solid rgba(43,36,48,0.04);
+      backdrop-filter: blur(var(--glass-blur));
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo-mark{
+      width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:grid;place-items:center;color:white;font-weight:800;font-family:"Poppins",sans-serif;
+      box-shadow: var(--glow);
+      font-size:18px;
+    }
+    .wordmark{font-family:"Poppins",sans-serif;font-weight:700;font-size:18px;letter-spacing:0.6px}
+    .nav{display:flex;gap:18px;align-items:center}
+    .nav a{color:var(--text);text-decoration:none;padding:8px 6px;font-weight:600;position:relative}
+    .nav a.active::after{content:"";position:absolute;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--gold));bottom:-8px;border-radius:3px;transform:scaleX(1);transform-origin:left;transition:transform var(--timing) cubic-bezier(.2,.9,.3,1)}
+    .nav a::after{content:"";position:absolute;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--gold));bottom:-8px;border-radius:3px;transform:scaleX(0);transform-origin:left;transition:transform var(--timing) cubic-bezier(.2,.9,.3,1)}
+    .nav a:hover::after{transform:scaleX(1)}
+    .search{position:relative}
+    .search input{
+      border:0;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.6);min-width:140px;
+      box-shadow:var(--soft-shadow);
+    }
+
+    /* Cart */
+    .cart-btn{position:relative;background:transparent;border:0;cursor:pointer;padding:8px;border-radius:10px;font-size:18px}
+    .cart-count{position:absolute;top:4px;right:4px;background:var(--accent);color:white;border-radius:999px;padding:4px 7px;font-size:12px;font-weight:700;box-shadow:var(--glow)}
+
+    /* Mobile menu toggle */
+    .mobile-toggle{display:none;border:0;background:transparent;padding:6px;border-radius:8px;font-size:20px}
+    @media (max-width:880px){
+      .nav{display:none}
+      .search input{display:none}
+      .mobile-toggle{display:inline-flex}
+    }
+
+    /* Hero */
+    .hero{
+      --hero-h: min(760px, 88vh);
+      height:var(--hero-h);
+      position:relative;overflow:hidden;
+      display:grid;align-items:center;
+      margin-bottom:28px;
+    }
+    .hero .bg-layer{
+      position:absolute;inset:0;background:
+       radial-gradient(800px 400px at 10% 20%, rgba(215,127,191,0.12), transparent 10%),
+       radial-gradient(600px 300px at 90% 80%, rgba(199,128,255,0.08), transparent 20%),
+       linear-gradient(180deg, rgba(255,250,252,0.6), rgba(255,250,252,0.2));
+      transform:translateZ(0);
+      filter:blur(6px);
+    }
+    .hero .container{position:relative;z-index:3;display:flex;align-items:center;gap:22px}
+    .hero-left{max-width:520px}
+    .kicker{display:inline-block;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;padding:6px 10px;border-radius:999px;font-weight:700;margin-bottom:12px}
+    h1{font-family:"Poppins",sans-serif;font-size:clamp(28px,6vw,56px);line-height:1.02;margin:0 0 12px;letter-spacing:0.6px}
+    .lead{color:var(--muted);margin-bottom:18px;font-size:16px}
+    .hero-ctas{display:flex;gap:12px;align-items:center}
+    .btn{
+      border:0;padding:12px 18px;border-radius:12px;background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:white;font-weight:700;cursor:pointer;font-family:"Poppins",sans-serif;box-shadow:var(--glow);
+      transition:transform var(--timing), box-shadow var(--timing);
+    }
+    .btn.ghost{background:transparent;color:var(--text);border:1px solid rgba(43,36,48,0.06);box-shadow:none}
+    .btn:hover{transform:translateY(-4px) scale(1.02)}
+    .btn:active{transform:scale(.99)}
+    .halo{position:relative}
+    .halo::after{content:"";position:absolute;inset:-6px;border-radius:16px;filter:blur(18px);opacity:.65;background:linear-gradient(90deg, rgba(215,127,191,0.25), rgba(199,128,255,0.18));z-index:-1}
+
+    /* Hero image area */
+    .hero-right{flex:1;display:flex;align-items:center;justify-content:center;position:relative;min-height:320px}
+    .hero-card{
+      width:min(520px,80%);height:min(420px,70%);border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.55));
+      display:grid;place-items:center;box-shadow:var(--soft-shadow);backdrop-filter:blur(8px);position:relative;overflow:visible
+    }
+    .product-cutout{width:320px;height:320px;transform:translateY(-8px);transition:transform 420ms cubic-bezier(.2,.9,.3,1);will-change:transform}
+    .product-cutout img{width:100%;height:100%;object-fit:contain;pointer-events:none;opacity:1;transition:opacity 300ms ease}
+
+    /* Categories */
+    .categories{padding:18px 0;overflow:hidden}
+    .cat-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch}
+    .cat-chip{min-width:92px;scroll-snap-align:center;background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.4));border-radius:999px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;cursor:pointer;box-shadow:var(--soft-shadow);transition:transform var(--timing)}
+    .cat-chip.active{transform:scale(1.02);box-shadow:var(--glow)}
+    .cat-chip img{width:48px;height:48px;border-radius:999px;object-fit:cover}
+
+    /* Offers */
+    .offers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+    .offer{padding:18px;border-radius:18px;background:linear-gradient(135deg,rgba(215,127,191,0.12),rgba(199,128,255,0.08));min-height:120px;position:relative;overflow:hidden}
+    .offer h3{margin:0 0 8px;font-family:"Poppins",sans-serif}
+    .offer .shine{position:absolute;left:-40%;top:-10%;width:140%;height:120%;transform:rotate(-25deg);background:linear-gradient(90deg,rgba(255,255,255,0.18),rgba(255,255,255,0));opacity:.6;animation:shine 3.6s linear infinite}
+    @keyframes shine{0%{transform:translateX(-100%) rotate(-25deg)}100%{transform:translateX(100%) rotate(-25deg)}}
+
+    /* Products */
+    .section{padding:26px 0}
+    .controls{display:flex;gap:12px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+    .tabs{display:flex;gap:8px}
+    .tab{background:transparent;border:0;padding:8px 12px;border-radius:999px;cursor:pointer;font-weight:700}
+    .tab.active{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;box-shadow:var(--glow)}
+    .filters{display:flex;gap:8px;align-items:center}
+    .product-grid{display:grid;gap:16px;grid-template-columns:repeat(1,1fr)}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.5));border-radius:14px;padding:12px;box-shadow:var(--soft-shadow);transition:transform var(--timing), box-shadow var(--timing);overflow:hidden;position:relative}
+    .card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 18px 40px rgba(43,36,48,0.12)}
+    .card img{width:100%;height:220px;object-fit:cover;border-radius:10px;transition:transform 420ms}
+    .card:hover img{transform:scale(1.06)}
+    .card .meta{padding:10px 2px}
+    .card h4{margin:6px 0;font-family:"Poppins",sans-serif;font-weight:700}
+    .price{font-weight:800;color:var(--text);display:flex;align-items:center;gap:10px}
+
+    /* Product skeleton */
+    .skeleton{background:linear-gradient(90deg,#eee #f8f8f8 #eee);background-size:200% 100%;animation:shimmer 1.2s linear infinite;border-radius:8px}
+    @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+    /* Responsive */
+    @media(min-width:560px){
+      .product-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(min-width:900px){
+      .offers{grid-template-columns:repeat(3,1fr)}
+      .product-grid{grid-template-columns:repeat(3,1fr)}
+    }
+
+    /* Mini cart sidebar */
+    .mini-cart{
+      position:fixed;right:0;top:0;height:100%;width:360px;max-width:92vw;background:linear-gradient(180deg,white,rgba(255,250,255,0.98));
+      box-shadow: -12px 0 34px rgba(43,36,48,0.12);transform:translateX(110%);transition:transform 320ms cubic-bezier(.2,.9,.3,1);z-index:120;padding:18px;overflow:auto;border-left:1px solid rgba(43,36,48,0.04)
+    }
+    .mini-cart.open{transform:translateX(0)}
+    .mini-cart .close{position:absolute;left:12px;top:12px;border:0;background:transparent;padding:8px;font-size:18px}
+    .mini-cart .items{display:flex;flex-direction:column;gap:12px;padding-top:40px}
+    .cart-item{display:flex;gap:12px;align-items:center}
+    .cart-item img{width:68px;height:68px;border-radius:8px;object-fit:cover}
+    .qty{display:flex;align-items:center;gap:8px}
+    .qty button{width:28px;height:28px;border-radius:8px;border:0;background:rgba(0,0,0,0.06);cursor:pointer}
+
+    /* Toast */
+    .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:28px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;padding:10px 14px;border-radius:12px;box-shadow:var(--glow);opacity:0;pointer-events:none;transition:opacity 280ms}
+    .toast.show{opacity:1;pointer-events:auto}
+
+    /* Modal quick view */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(10,8,12,0.46);display:none;align-items:center;justify-content:center;z-index:140;padding:18px}
+    .modal-backdrop.open{display:flex}
+    .modal{width:min(920px,96vw);background:var(--card);border-radius:14px;padding:18px;backdrop-filter:blur(10px);box-shadow:0 18px 40px rgba(43,36,48,0.16);display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+    @media(max-width:680px){.modal{grid-template-columns:1fr;max-height:90vh;overflow:auto}}
+
+    /* Testimonials */
+    .testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+    .testimonials .card{padding:16px}
+    @media(max-width:880px){.testimonials{grid-template-columns:repeat(1,1fr)}}
+
+    /* Newsletter & footer */
+    .newsletter{padding:18px;border-radius:14px;background:linear-gradient(90deg,rgba(215,127,191,0.06),rgba(199,128,255,0.04));display:flex;gap:12px;align-items:center}
+    .footer{padding:26px 0;margin-top:28px;background:linear-gradient(180deg,rgba(243,237,246,0.8),transparent);border-top:1px solid rgba(43,36,48,0.04)}
+
+    /* Back to top */
+    .to-top{position:fixed;right:18px;bottom:18px;padding:10px;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;border:0;cursor:pointer;box-shadow:var(--glow)}
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{transition:none!important;animation:none!important}
+    }
+  </style>
+</head>
+<body>
+  <!-- Announcement -->
+  <div class="announcement" id="announcement">
+    Limited Offer: Free shipping on orders over ₹999 — Use code <strong>BLUSH20</strong>
+    <button aria-label="Dismiss announcement" id="dismissAnn">✕</button>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="siteHeader">
+    <div class="header-inner container">
+      <div class="brand" aria-label="Nirwan Craft brand">
+        <div class="logo-mark" aria-hidden="true">NC</div>
+        <div>
+          <div class="wordmark">Nirwan Craft</div>
+          <div style="font-size:12px;color:var(--muted)">Luxury Chappals & Ethnic Footwear</div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="#" class="active">Home</a>
+        <a href="#shop">Shop</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="search" role="search">
+          <label for="topSearch" class="sr-only">Search products</label>
+          <input id="topSearch" placeholder="Search chappals..." aria-label="Search products">
+        </div>
+        <button class="cart-btn" id="cartBtn" aria-label="Open cart">
+          🛍
+          <span class="cart-count" id="cartCount" aria-live="polite">0</span>
+        </button>
+        <button class="mobile-toggle" id="mobileToggle" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" style="display:none;backdrop-filter:blur(10px);padding:18px" aria-hidden="true">
+      <div style="display:flex;gap:12px;flex-direction:column">
+        <a href="#">Home</a>
+        <a href="#shop">Shop</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <input placeholder="Search..." />
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="bg-layer" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero-left">
+        <span class="kicker">New Collection • Soft Blends</span>
+        <h1>Step into Bliss — Handcrafted Chappals for Every Mood</h1>
+        <p class="lead">Discover premium comfort with playful colors, delicate embroidery, and a luxe finish. Limited stock — handcrafted in small batches.</p>
+        <div class="hero-ctas">
+          <button class="btn halo" id="shopNow">Shop Now</button>
+          <button class="btn ghost" id="explore">Explore Styles</button>
+        </div>
+      </div>
+      <div class="hero-right" aria-hidden="false">
+        <div class="hero-card" id="heroCard" role="img" aria-label="Featured chappal illustration. IMAGE: hero-1.jpg">
+          <!-- Image placeholder: replace with actual product cutout -->
+          <div class="product-cutout" id="heroImg">
+            <!-- IMAGE: hero-1.png -->
+            <img src="<!-- IMAGE: hero-1.jpg -->" alt="Featured pink chappal (placeholder)" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="container categories" aria-label="Shop by category">
+    <div class="cat-scroll" id="catScroll" tabindex="0">
+      <div class="cat-chip active" data-cat="Flip Flops" role="button" tabindex="0" aria-pressed="true">
+        <!-- IMAGE: cat-flipflop.jpg -->
+        <img src="<!-- IMAGE: cat-flipflop.jpg -->" alt="Flip Flops">
+        <div>Flip Flops</div>
+      </div>
+      <div class="cat-chip" data-cat="Heels" role="button" tabindex="0">
+        <img src="<!-- IMAGE: cat-heels.jpg -->" alt="Heels">
+        <div>Heels</div>
+      </div>
+      <div class="cat-chip" data-cat="Loafers" role="button" tabindex="0">
+        <img src="<!-- IMAGE: cat-loafers.jpg -->" alt="Loafers">
+        <div>Loafers</div>
+      </div>
+      <div class="cat-chip" data-cat="Juttis" role="button" tabindex="0">
+        <img src="<!-- IMAGE: cat-juttis.jpg -->" alt="Juttis">
+        <div>Juttis</div>
+      </div>
+      <div class="cat-chip" data-cat="Flats" role="button" tabindex="0">
+        <img src="<!-- IMAGE: cat-flats.jpg -->" alt="Flats">
+        <div>Flats</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Offers -->
+  <section class="container offers" aria-label="Special offers">
+    <div class="offer">
+      <div style="z-index:2">
+        <h3>New Arrivals</h3>
+        <p>Fresh colors and textures, handcrafted details.</p>
+      </div>
+      <div class="shine" aria-hidden="true"></div>
+    </div>
+    <div class="offer">
+      <div style="z-index:2">
+        <h3>Up to 50% Off</h3>
+        <p>Selected party wear chappals — limited time.</p>
+      </div>
+      <div class="shine" aria-hidden="true"></div>
+    </div>
+    <div class="offer">
+      <div style="z-index:2">
+        <h3>Best Sellers</h3>
+        <p>Customer favorites — tried & loved.</p>
+      </div>
+      <div class="shine" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <main class="container" id="shop" aria-label="Products">
+    <section class="section">
+      <div class="controls">
+        <div class="tabs" role="tablist" aria-label="Product tabs">
+          <button class="tab active" data-tab="featured" role="tab" aria-selected="true">Featured</button>
+          <button class="tab" data-tab="all" role="tab" aria-selected="false">All Products</button>
+        </div>
+        <div class="filters" style="margin-left:auto">
+          <input id="search" placeholder="Search product name..." aria-label="Search products">
+          <select id="categoryFilter" aria-label="Filter by category">
+            <option value="">All Categories</option>
+            <option value="Casual">Casual</option>
+            <option value="Party">Party Wear</option>
+            <option value="Traditional">Traditional</option>
+          </select>
+          <select id="sortBy" aria-label="Sort price">
+            <option value="default">Sort</option>
+            <option value="low">Price: Low to High</option>
+            <option value="high">Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="productArea">
+        <div class="product-grid" id="productGrid" aria-live="polite">
+          <!-- Products will be rendered here -->
+        </div>
+        <div id="skeletons" style="display:none;margin-top:12px">
+          <div class="skeleton" style="height:260px;border-radius:12px"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Testimonials -->
+  <section class="container section" aria-label="Testimonials">
+    <h2 style="font-family:Poppins, sans-serif">What our customers say</h2>
+    <div class="testimonials" id="testimonials">
+      <div class="card">
+        <div style="display:flex;gap:10px;align-items:center">
+          <!-- IMAGE: avatar1.jpg -->
+          <img src="<!-- IMAGE: avatar1.jpg -->" alt="Ananya" style="width:54px;height:54px;border-radius:999px;object-fit:cover">
+          <div>
+            <strong>Ananya</strong>
+            <div style="color:var(--muted);font-size:13px">Verified buyer</div>
+          </div>
+        </div>
+        <p style="margin-top:10px">"Super comfy and the color is dreamy — perfect for summer!"</p>
+      </div>
+      <div class="card">
+        <div style="display:flex;gap:10px;align-items:center">
+          <img src="<!-- IMAGE: avatar2.jpg -->" alt="Rhea" style="width:54px;height:54px;border-radius:999px;object-fit:cover">
+          <div>
+            <strong>Rhea</strong>
+            <div style="color:var(--muted);font-size:13px">Verified buyer</div>
+          </div>
+        </div>
+        <p style="margin-top:10px">"Loved the craftsmanship — got so many compliments!"</p>
+      </div>
+      <div class="card">
+        <div style="display:flex;gap:10px;align-items:center">
+          <img src="<!-- IMAGE: avatar3.jpg -->" alt="Meera" style="width:54px;height:54px;border-radius:999px;object-fit:cover">
+          <div>
+            <strong>Meera</strong>
+            <div style="color:var(--muted);font-size:13px">Verified buyer</div>
+          </div>
+        </div>
+        <p style="margin-top:10px">"The sole is so comfy — I wear them every day."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter & Trust -->
+  <section class="container" aria-label="Newsletter and trust">
+    <div class="newsletter">
+      <div style="flex:1">
+        <strong>Join the Nirwan Tribe</strong>
+        <div style="color:var(--muted)">Sign up for exclusive drops & 10% off your first order</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <input id="emailInput" placeholder="Your email address" aria-label="Email address">
+        <button class="btn" id="subscribeBtn">Subscribe</button>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:16px;align-items:center;margin-top:12px;justify-content:center">
+      <div class="trust center" aria-hidden="true">🔒 Secure Payments</div>
+      <div class="trust center" aria-hidden="true">🔁 Easy Returns</div>
+      <div class="trust center" aria-hidden="true">⚡ Fast Shipping</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer container" aria-labelledby="footerHeading">
+    <h3 id="footerHeading">Nirwan Craft</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between">
+      <div style="max-width:360px">
+        <p style="color:var(--muted)">Nirwan Craft makes handcrafted chappals with a playful, premium touch. Follow us on Instagram for behind-the-scenes.</p>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <!-- social icons placeholders -->
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="YouTube">YT</a>
+        </div>
+      </div>
+      <div style="display:flex;gap:18px;align-items:start">
+        <div>
+          <strong>Quick links</strong>
+          <ul style="list-style:none;padding:0;margin:6px 0;color:var(--muted)">
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Shipping</a></li>
+          </ul>
+        </div>
+        <div>
+          <strong>Contact</strong>
+          <div style="color:var(--muted);margin-top:6px">hello@nirwancraft.example<br/>+91 98765 43210</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;color:var(--muted);font-size:13px;margin-top:18px">© Nirwan Craft • Privacy • Returns • Shipping</div>
+  </footer>
+
+  <!-- Mini-cart sidebar -->
+  <aside class="mini-cart" id="miniCart" aria-hidden="true">
+    <button class="close" id="closeCart" aria-label="Close cart">✕</button>
+    <h3>Your Cart</h3>
+    <div class="items" id="cartItems"></div>
+    <div style="margin-top:12px;border-top:1px dashed rgba(43,36,48,0.06);padding-top:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div><strong>Subtotal</strong></div>
+        <div id="cartSubtotal">₹0</div>
+      </div>
+      <div style="margin-top:8px;color:var(--muted)">Cash on Delivery Available ✅</div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <button class="btn" id="checkoutBtn">Checkout</button>
+        <button class="btn ghost" id="continueBtn">Continue Shopping</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">Added to cart</div>
+
+  <!-- Quick view modal -->
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div id="modalImages">
+        <!-- large image -->
+        <img src="<!-- IMAGE: modal-1.jpg -->" alt="Product" style="width:100%;height:320px;object-fit:cover;border-radius:8px">
+      </div>
+      <div>
+        <h3 id="modalTitle">Product Title</h3>
+        <div id="modalDesc" style="color:var(--muted)">Short description</div>
+        <div style="margin-top:12px" class="price"><div id="modalPrice">₹0</div></div>
+        <div style="display:flex;gap:8px;margin-top:12px;align-items:center">
+          <button class="btn" id="modalAdd">Add to Cart</button>
+          <button class="btn ghost" id="modalWish">❤ Wishlist</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to top -->
+  <button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+  <!-- ======================
+       JavaScript: Data & Behaviour
+       ====================== -->
+  <script>
+    /* ======================
+       Data & initial state
+       ====================== */
+    const PRODUCTS = [
+      {id:1,title:"Blush Velvet Jutti",price:1299,category:"Traditional",stock:8,img:"<!-- IMAGE: p1.jpg -->",desc:"Embroidered velvet jutti with cushioned sole."},
+      {id:2,title:"Pastel Slide",price:799,category:"Casual",stock:12,img:"<!-- IMAGE: p2.jpg -->",desc:"Everyday slide with soft footbed."},
+      {id:3,title:"Gold Embellished Heel",price:2499,category:"Party",stock:5,img:"<!-- IMAGE: p3.jpg -->",desc:"Low heel with golden threadwork."},
+      {id:4,title:"Ivory Loafer",price:1499,category:"Casual",stock:14,img:"<!-- IMAGE: p4.jpg -->",desc:"Classic loafer with stitched finish."},
+      {id:5,title:"Lilac Flip Flop",price:599,category:"Casual",stock:20,img:"<!-- IMAGE: p5.jpg -->",desc:"Lightweight flip flops with soft straps."},
+      {id:6,title:"Rose Garden Flat",price:1099,category:"Traditional",stock:6,img:"<!-- IMAGE: p6.jpg -->",desc:"Floral-embroidered flats for festive wear."}
+    ];
+
+    let state = {
+      tab:'featured',
+      filterCategory:'',
+      search:'',
+      sort:'default',
+      cart: JSON.parse(localStorage.getItem('nc_cart')||'{}') // {id:qty}
+    };
+
+    /* Utility: currency formatting */
+    const fmt = v=>"₹"+v.toLocaleString('en-IN');
+
+    /* ======================
+       Rendering functions
+       ====================== */
+    function renderProducts(){
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML='';
+      // compute filtered list
+      let list = PRODUCTS.slice();
+      // tab filter: featured picks (first items)
+      if(state.tab==='featured') list = list.filter((p,i)=>i<6);
+      if(state.filterCategory) list = list.filter(p=>p.category===state.filterCategory);
+      if(state.search) list = list.filter(p=>p.title.toLowerCase().includes(state.search.toLowerCase()));
+      if(state.sort==='low') list.sort((a,b)=>a.price-b.price);
+      if(state.sort==='high') list.sort((a,b)=>b.price-a.price);
+      // render
+      list.forEach(p=>{
+        const div = document.createElement('div');div.className='card';
+        div.innerHTML = `
+          <div style="position:relative">
+            <img src="${p.img}" alt="${p.title}" loading="lazy">
+          </div>
+          <div class="meta">
+            <h4>${p.title}</h4>
+            <div style="color:var(--muted);font-size:14px">${p.desc}</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+              <div class="price">${fmt(p.price)}<small style="color:var(--muted);font-weight:600"> • ${p.stock} in stock</small></div>
+              <div style="display:flex;gap:8px">
+                <button class="btn" data-action="add" data-id="${p.id}">Add</button>
+                <button class="btn ghost" data-action="quick" data-id="${p.id}">Quick View</button>
+              </div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(div);
+      });
+    }
+
+    /* Render cart mini sidebar */
+    function renderCart(){
+      const itemsWrap = document.getElementById('cartItems');
+      itemsWrap.innerHTML='';
+      let subtotal = 0;
+      const keys = Object.keys(state.cart);
+      if(keys.length===0){
+        itemsWrap.innerHTML = `<div style="text-align:center;padding:24px;color:var(--muted)">
+          <div style="font-size:48px">👜</div><div style="font-weight:700;margin-top:8px">Your cart is empty</div>
+          <div style="margin-top:8px">Explore Best Sellers</div>
+        </div>`;
+      } else {
+        keys.forEach(id=>{
+          const qty = state.cart[id];
+          const p = PRODUCTS.find(x=>x.id==id);
+          if(!p) return;
+          const row = document.createElement('div');row.className='cart-item';
+          row.innerHTML = `
+            <img src="${p.img}" alt="${p.title}">
+            <div style="flex:1">
+              <div style="display:flex;justify-content:space-between">
+                <strong>${p.title}</strong>
+                <div>${fmt(p.price*qty)}</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+                <div class="qty">
+                  <button data-action="dec" data-id="${p.id}">−</button>
+                  <div aria-live="polite">${qty}</div>
+                  <button data-action="inc" data-id="${p.id}">+</button>
+                </div>
+                <button data-action="remove" data-id="${p.id}" style="background:transparent;border:0;cursor:pointer">Remove</button>
+              </div>
+            </div>
+          `;
+          itemsWrap.appendChild(row);
+          subtotal += p.price*qty;
+        });
+      }
+      document.getElementById('cartSubtotal').textContent = fmt(subtotal);
+      document.getElementById('cartCount').textContent = Object.values(state.cart).reduce((a,b)=>a+b,0);
+      localStorage.setItem('nc_cart', JSON.stringify(state.cart));
+    }
+
+    /* Add to cart logic */
+    function addToCart(id,qty=1){
+      const p = PRODUCTS.find(x=>x.id==id);
+      if(!p || p.stock<=0){ showToast('Out of stock'); return; }
+      state.cart[id] = (state.cart[id]||0) + qty;
+      // guard: cannot exceed stock
+      if(state.cart[id] > p.stock) state.cart[id] = p.stock;
+      renderCart();
+      // bump animation
+      const cartBtn = document.getElementById('cartBtn');
+      cartBtn.animate([{transform:'scale(1)'},{transform:'scale(1.08)'},{transform:'scale(1)'}],{duration:360});
+      showToast('Added to cart');
+    }
+
+    /* Remove from cart */
+    function removeFromCart(id){
+      delete state.cart[id];
+      renderCart();
+    }
+
+    /* Update qty */
+    function updateQty(id,delta){
+      if(!state.cart[id]) return;
+      state.cart[id] = Math.max(0, state.cart[id]+delta);
+      if(state.cart[id]===0) removeFromCart(id);
+      renderCart();
+    }
+
+    /* Toast helper */
+    let toastTimer=null;
+    function showToast(text,ttl=2000){
+      const t = document.getElementById('toast');
+      t.textContent = text;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=>t.classList.remove('show'),ttl);
+    }
+
+    /* Modal quick view */
+    let activeModalId = null;
+    function openQuickView(id){
+      const p = PRODUCTS.find(x=>x.id==id);
+      if(!p) return;
+      activeModalId = id;
+      const imgEl = document.querySelector('#modalImages img');
+      if(imgEl) imgEl.src = p.img;
+      document.getElementById('modalTitle').textContent = p.title;
+      document.getElementById('modalDesc').textContent = p.desc;
+      document.getElementById('modalPrice').textContent = fmt(p.price);
+      document.getElementById('modalBackdrop').classList.add('open');
+      document.getElementById('modalBackdrop').setAttribute('aria-hidden','false');
+      // focus management
+      document.getElementById('modalAdd').focus();
+    }
+
+    /* Close modal */
+    function closeModal(){
+      document.getElementById('modalBackdrop').classList.remove('open');
+      document.getElementById('modalBackdrop').setAttribute('aria-hidden','true');
+      activeModalId = null;
+    }
+
+    /* Mini-cart open/close */
+    function openCart(){ document.getElementById('miniCart').classList.add('open'); document.getElementById('miniCart').setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+    function closeCart(){ document.getElementById('miniCart').classList.remove('open'); document.getElementById('miniCart').setAttribute('aria-hidden','true'); document.body.style.overflow='auto'; }
+
+    /* ======================
+       Event bindings
+       ====================== */
+    document.addEventListener('click', (e)=>{
+      const act = e.target.closest('[data-action]');
+      if(act){
+        const action = act.getAttribute('data-action');
+        const id = parseInt(act.getAttribute('data-id'));
+        if(action==='add'){ addToCart(id); }
+        if(action==='quick'){ openQuickView(id); }
+        if(action==='remove'){ removeFromCart(id); }
+        if(action==='inc'){ updateQty(id,1); }
+        if(action==='dec'){ updateQty(id,-1); }
+      }
+    });
+
+    // Cart button
+    document.getElementById('cartBtn').addEventListener('click', openCart);
+    document.getElementById('closeCart').addEventListener('click', closeCart);
+    document.getElementById('continueBtn').addEventListener('click', closeCart);
+
+    // Modal handlers
+    document.getElementById('modalBackdrop').addEventListener('click', (e)=>{
+      if(e.target === e.currentTarget) closeModal();
+    });
+    document.addEventListener('keydown', (e)=>{
+      if(e.key==='Escape'){ closeModal(); closeCart(); }
+    });
+
+    // Tabs
+    document.querySelectorAll('.tab').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        document.querySelectorAll('.tab').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected','false')});
+        btn.classList.add('active');btn.setAttribute('aria-selected','true');
+        state.tab = btn.getAttribute('data-tab');
+        renderProducts();
+      });
+    });
+
+    // Filters
+    document.getElementById('categoryFilter').addEventListener('change',(e)=>{ state.filterCategory=e.target.value; renderProducts(); });
+    document.getElementById('search').addEventListener('input',(e)=>{ state.search=e.target.value; renderProducts(); });
+    document.getElementById('sortBy').addEventListener('change',(e)=>{ state.sort=e.target.value; renderProducts(); });
+
+    // Subscribe
+    document.getElementById('subscribeBtn').addEventListener('click', ()=>{
+      const email = document.getElementById('emailInput').value.trim();
+      if(!email || !email.includes('@')){ alert('Please enter a valid email'); return; }
+      showToast('Subscribed — check your inbox!');
+      if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        // small sparkle effect
+        const el = document.createElement('div'); el.textContent='✨'; el.style.position='fixed'; el.style.left='50%'; el.style.top='20%'; el.style.fontSize='28px'; document.body.appendChild(el);
+        setTimeout(()=>el.remove(),900);
+      }
+    });
+
+    // Mobile toggle
+    document.getElementById('mobileToggle').addEventListener('click', ()=>{
+      const menu = document.getElementById('mobileMenu'); const expanded = menu.style.display!=='none';
+      menu.style.display = expanded ? 'none' : 'block';
+      document.getElementById('mobileToggle').setAttribute('aria-expanded', String(!expanded));
+    });
+
+    // Announce dismiss
+    document.getElementById('dismissAnn').addEventListener('click', ()=>document.getElementById('announcement').style.display='none');
+
+    // Back to top
+    document.getElementById('toTop').addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+    // Category chips
+    document.querySelectorAll('.cat-chip').forEach(ch=>{
+      ch.addEventListener('click', ()=>{
+        document.querySelectorAll('.cat-chip').forEach(c=>c.classList.remove('active'));
+        ch.classList.add('active');
+        // set filter and update
+        state.filterCategory = ch.getAttribute('data-cat') || '';
+        // map Flip Flops to casual show behavior
+        document.getElementById('categoryFilter').value = state.filterCategory==='Flip Flops' ? '' : state.filterCategory;
+        renderProducts();
+        ch.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+      });
+    });
+
+    /* Initialize */
+    renderProducts();
+    renderCart();
+
+    /* Sticky header auto-hide on scroll */
+    let lastScroll = 0;
+    const header = document.getElementById('siteHeader');
+    window.addEventListener('scroll', ()=>{
+      const s = window.scrollY;
+      if(s>lastScroll && s>80){ header.classList.add('hidden'); } else { header.classList.remove('hidden'); }
+      lastScroll = s;
+    });
+
+    /* Hero parallax on mouse move (subtle) */
+    const heroImg = document.getElementById('heroImg');
+    document.getElementById('hero').addEventListener('mousemove',(e)=>{
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = (e.clientX - rect.left)/rect.width - 0.5;
+      const y = (e.clientY - rect.top)/rect.height - 0.5;
+      heroImg.style.transform = `translate(${x*10}px,${y*8}px) rotate(${x*3}deg)`;
+    });
+    document.getElementById('hero').addEventListener('mouseleave',()=>heroImg.style.transform='translateY(-8px)');
+
+    /* Accessibility: trap focus in modal when open (simple approach) */
+    document.getElementById('modalBackdrop').addEventListener('keydown', (e)=>{
+      if(e.key==='Tab'){
+        const focusables = document.querySelectorAll('.modal button, .modal a, .modal input');
+        if(focusables.length) focusables[0].focus();
+      }
+    });
+
+    /* Simple autoplay slideshow (hero) - fades between images (placeholders) */
+    let heroIndex = 0;
+    const heroImgs = ['<!-- IMAGE: hero-1.jpg -->','<!-- IMAGE: hero-2.jpg -->','<!-- IMAGE: hero-3.jpg -->'];
+    function rotateHero(){
+      heroIndex = (heroIndex+1)%heroImgs.length;
+      const img = document.querySelector('#heroImg img');
+      // fade
+      img.style.opacity=0; setTimeout(()=>{ img.src = heroImgs[heroIndex]; img.style.opacity=1; },300);
+    }
+    let heroTimer = setInterval(rotateHero,5000);
+    document.getElementById('hero').addEventListener('mouseenter', ()=>clearInterval(heroTimer));
+    document.getElementById('hero').addEventListener('mouseleave', ()=>heroTimer = setInterval(rotateHero,5000));
+
+    /* Keyboard navigation for tabs */
+    document.querySelectorAll('[role="tab"]').forEach((t,i,arr)=>{
+      t.addEventListener('keydown',(e)=>{
+        if(e.key==='ArrowRight'){ arr[(i+1)%arr.length].focus(); }
+        if(e.key==='ArrowLeft'){ arr[(i-1+arr.length)%arr.length].focus(); }
+      });
+    });
+
+    /* Ensure cart persists */
+    window.addEventListener('load',()=>{
+      renderCart();
+    });
+
+    /* Lightweight lazy loading fallback */
+    document.addEventListener("DOMContentLoaded", function() {
+      if('loading' in HTMLImageElement.prototype){
+        const imgs = document.querySelectorAll('img[loading="lazy"]');
+        imgs.forEach(img => { if(img.dataset.src) img.src = img.dataset.src; });
+      }
+    });
+
+    /* END */
+  </script>
+</body>
+</html>
